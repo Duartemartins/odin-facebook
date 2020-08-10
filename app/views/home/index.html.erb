@@ -1,0 +1,6 @@
+<h1>Home</h1>
+
+<p>Users:</p>
+<% @users.each do |u| %>
+<div><%= u.email %>, <%= link_to("Profile", user_path(u.id)) %> <div>
+<% end %>

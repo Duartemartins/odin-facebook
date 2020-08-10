@@ -1,0 +1,27 @@
+<section class="bg-white container mx-auto p-6 py-24">
+  <h2 class="text-gray-800 font-medium capitalize text-xl md:text-2xl">Add Friends</h2>
+  <div class="flex items-center justify-center">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
+      <% @users.each do |user| %>
+        <div class="max-w-xs w-full text-center">
+          <% if user.avatar.attached? %>
+          <%= link_to user do %>
+            <%= image_tag(user.avatar, size: "50x50",class: "h-48 w-full object-cover object-center mx-auto rounded-lg") %>
+            <% end %>
+          <% else %>
+          <%= link_to user do %>
+            <%= image_tag("https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", size: "50x50",class: "h-48 w-full object-cover object-center mx-auto rounded-lg") %>
+            <% end %>
+        <% end %>
+          <div class="mt-2">
+            <h3 class="text-lg font-medium text-gray-700"><%= "#{user.first_name}" + " " + "#{user.last_name}" %></h3>
+            <span class="mt-1 font-medium text-gray-600"><% unless current_user.friends.include?(user) || current_user == user || current_user.requested_friends.include?(user) || current_user.pending_friends.include?(user) %><%= link_to 'Add Friend', friendships_path(friendship: {friend_id: user.id, user_id: current_user.id}), remote: true, method: :post%><% end %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex content-center justify-center text-gray-700"><%= will_paginate @users, class:"apple-pagination items-center" %></div>
+  
+
+</section>

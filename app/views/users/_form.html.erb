@@ -1,0 +1,40 @@
+<div class="w-full max-w-6xl max-h-full rounded-lg overflow-hidden mx-auto">
+  <div class="py-12 px-6">
+    <%= form_with(model: user, local: true) do |form| %>
+      <% if user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+          <ul>
+            <% user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <span class="mt-1 text-center text-gray-600">Email</span>
+      <%= form.email_field :email, class: "flex content-center border-b border-b-4 w-full border-grey-500 py-2 text-center font-semibold" %><br />
+      <span class="mt-1 text-center text-gray-600">First Name</span>
+      <%= form.text_field :first_name, class: "flex content-center border-b border-b-4 w-full border-grey-500 py-2 text-center font-semibold" %><br />
+      <span class="mt-1 text-center text-gray-600">Last Name</span>
+      <%= form.text_field :last_name, class: "flex content-center border-b border-b-4 w-full border-grey-500 py-2 text-center font-semibold" %><br />
+      <span class="mt-1 text-center text-gray-600">Avatar</span>
+      <%= form.file_field :avatar, class: "flex content-center border-b border-b-4 w-full border-grey-500 py-2 text-center font-semibold" %><br />
+      <%# <p>Posts:</p> %>
+      <%# form.fields_for :posts do |posts_form| %>
+        <%# posts_form.index + 1 %>
+        <%# posts_form.label :title  %>
+        <%# posts_form.text_field :title  %>
+        <%# posts_form.label :content  %>
+        <%# posts_form.text_field :content  %>
+        <%# end %>
+              <div class="flex flex-wrap -mx-3">
+        <div class="w-full md:w-24 px-0">
+          <%= form.submit "Save", class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
+        </div>
+        <div class="hover:bg-blue-500 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+          <%= link_to 'Back', user_path(@user), class:"text-white text-opacity-100 visited:text-white" %>
+        </div>
+        </div>
+      <% end %>
+    </div>
+  </div>

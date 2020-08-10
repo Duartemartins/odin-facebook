@@ -1,0 +1,43 @@
+2020-05-07 18:24:28.887 BST [19579] LOG:  starting PostgreSQL 12.2 on x86_64-apple-darwin19.3.0, compiled by Apple clang version 11.0.0 (clang-1100.0.33.17), 64-bit
+2020-05-07 18:24:28.891 BST [19579] LOG:  listening on IPv6 address "::1", port 5432
+2020-05-07 18:24:28.891 BST [19579] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2020-05-07 18:24:28.893 BST [19579] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2020-05-07 18:24:28.910 BST [19580] LOG:  database system was shut down at 2020-05-07 18:24:12 BST
+2020-05-07 18:24:28.931 BST [19579] LOG:  database system is ready to accept connections
+2020-05-07 18:24:30.844 BST [19587] FATAL:  database "odin_facebook_development" does not exist
+2020-05-08 21:07:36.435 BST [23375] ERROR:  column friendships.friend_id does not exist at character 74
+2020-05-08 21:07:36.435 BST [23375] HINT:  Perhaps you meant to reference the column "friendships.friend".
+2020-05-08 21:07:36.435 BST [23375] STATEMENT:  SELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."friend_id" WHERE "friendships"."user_id" = $1 LIMIT $2
+2020-05-08 21:07:42.738 BST [23375] ERROR:  column friendships.user_id does not exist at character 49
+2020-05-08 21:07:42.738 BST [23375] HINT:  Perhaps you meant to reference the column "friendships.user".
+2020-05-08 21:07:42.738 BST [23375] STATEMENT:  SELECT "friendships".* FROM "friendships" WHERE "friendships"."user_id" = $1 LIMIT $2
+2020-05-08 21:10:55.362 BST [23423] ERROR:  column friendships.friend_id does not exist at character 74
+2020-05-08 21:10:55.362 BST [23423] HINT:  Perhaps you meant to reference the column "friendships.friend".
+2020-05-08 21:10:55.362 BST [23423] STATEMENT:  SELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."friend_id" WHERE "friendships"."user_id" = $1 LIMIT $2
+2020-05-08 21:11:52.578 BST [23438] ERROR:  column friendships.friend_id does not exist at character 74
+2020-05-08 21:11:52.578 BST [23438] HINT:  Perhaps you meant to reference the column "friendships.friend".
+2020-05-08 21:11:52.578 BST [23438] STATEMENT:  SELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."friend_id" WHERE "friendships"."user_id" = $1 LIMIT $2
+2020-05-08 21:12:15.282 BST [23438] ERROR:  column friendships.friend_id does not exist at character 74
+2020-05-08 21:12:15.282 BST [23438] HINT:  Perhaps you meant to reference the column "friendships.friend".
+2020-05-08 21:12:15.282 BST [23438] STATEMENT:  SELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."friend_id" WHERE "friendships"."user_id" = $1 LIMIT $2
+2020-05-08 22:59:07.336 BST [23966] ERROR:  relation "friendships" already exists
+2020-05-08 22:59:07.336 BST [23966] STATEMENT:  CREATE TABLE "friendships" ("id" bigserial primary key, "user_id" bigint NOT NULL, "friend_id" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e3733b59b7"
+	FOREIGN KEY ("user_id")
+	  REFERENCES "users" ("id")
+	)
+2020-05-08 22:59:52.280 BST [23983] ERROR:  relation "friendships" already exists
+2020-05-08 22:59:52.280 BST [23983] STATEMENT:  CREATE TABLE "friendships" ("id" bigserial primary key, "user_id" bigint NOT NULL, "friend_id" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_e3733b59b7"
+	FOREIGN KEY ("user_id")
+	  REFERENCES "users" ("id")
+	)
+2020-05-08 23:00:47.856 BST [23998] ERROR:  database "odin_facebook_development" is being accessed by other users
+2020-05-08 23:00:47.856 BST [23998] DETAIL:  There are 2 other sessions using the database.
+2020-05-08 23:00:47.856 BST [23998] STATEMENT:  DROP DATABASE IF EXISTS "odin_facebook_development"
+2020-05-08 23:01:21.775 BST [24008] ERROR:  database "odin_facebook_development" is being accessed by other users
+2020-05-08 23:01:21.775 BST [24008] DETAIL:  There are 2 other sessions using the database.
+2020-05-08 23:01:21.775 BST [24008] STATEMENT:  DROP DATABASE IF EXISTS "odin_facebook_development"
+2020-05-08 23:01:39.744 BST [24017] ERROR:  database "odin_facebook_development" is being accessed by other users
+2020-05-08 23:01:39.744 BST [24017] DETAIL:  There are 2 other sessions using the database.
+2020-05-08 23:01:39.744 BST [24017] STATEMENT:  DROP DATABASE IF EXISTS "odin_facebook_development"
+2020-05-08 23:03:28.986 BST [23438] FATAL:  terminating connection due to unexpected postmaster exit
+2020-05-08 23:03:28.986 BST [23938] FATAL:  terminating connection due to unexpected postmaster exit

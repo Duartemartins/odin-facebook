@@ -1,0 +1,20 @@
+users
+posts
+likes
+comments
+
+users
+has many users
+has many posts
+
+posts
+belongs to user
+has many likes
+has many comments
+
+likes
+belongs to post
+
+comment
+belongs to user
+belongs to post
