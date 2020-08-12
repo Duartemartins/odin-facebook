@@ -60,7 +60,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "reek", "~> 5.2"
 
 gem 'rubocop', '~> 0.85.1', require: false
-gem "has_friendship", "~> 1.1"
 
 gem "omniauth-facebook", "~> 6.0"
 
