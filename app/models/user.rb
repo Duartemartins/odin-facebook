@@ -5,13 +5,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # - RELATIONS
   has_one_attached :avatar, dependent: :destroy
-  has_many :friendships, dependent: :destroy
-  has_many :friends, -> { where "status = 'accepted'" }, through: :friendships
-  has_many :requested_friends, -> { where "status = 'requested'" }, through: :friendships, source: :friend
-  has_many :pending_friends, -> { where "status = 'pending'" }, through: :friendships, source: :friend
+  has_many :friendships, dependent: :destroy  
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
+
 
   accepts_nested_attributes_for :posts
   # extra stuff:
@@ -29,5 +27,15 @@ class User < ApplicationRecord
     # uncomment the line below to skip the confirmation emails.
     # user.skip_confirmation!
     end
+  end
+
+  def pending_friends # user sent friend request but not yet accepted by friend. Returns friend that received the friend request.
+    Friendship.where("user_id = ? AND status = ?", self.id, "requested").pluck(:friend_id)
+  end
+  def requested_friends # user received friend request but not yet accepted by user. Returns user that sent the friend request.
+    Friendship.where("friend_id = ? AND status = ?", self.id, "requested").pluck(:user_id)
+  end
+  def friends
+    Friendship.where(status:"accepted").where('user_id = ? OR friend_id = ?', self.id, self.id)
   end
 end

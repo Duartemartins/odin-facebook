@@ -36,7 +36,7 @@
                 <%= link_to 'Find Friends', users_path, class: "mx-2 mt-2 md:mt-0 px-2 py-1 text-sm text-gray-700 font-medium rounded-md hover:bg-gray-300" %>
                 <%= link_to 'New Post', new_post_path(post:{user_id: current_user}), class: "mx-2 mt-2 md:mt-0 px-2 py-1 text-sm text-gray-700 font-medium rounded-md hover:bg-gray-300" %>
               </div>
-              <% if current_user.pending_friends.count >= 1 %>
+              <% if current_user.requested_friends.count >= 1 %>
                 <div class="flex items-center mt-4 md:mt-0">
                   <%= link_to friendships_path, class: "mx-4 hidden md:block text-indigo-600 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none" do %>
                     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="#667eea" stroke="#667eea" xmlns="http://www.w3.org/2000/svg">

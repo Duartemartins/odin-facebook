@@ -8,27 +8,36 @@
   <div class="px-3 py-4 flex justify-center">
     <table class="w-full text-md bg-white shadow-md rounded mb-4">
       <tbody>
-
-          <tr class="border-b">
-            <th class="text-left p-3 px-5">Name</th>
-            <th class="text-left p-3 px-5">Status</th>
-            <th class="text-left p-3 px-5">Actions</th>
-          </tr>
-                  <% current_user.friendships.each do |friendship| %>
+        <tr class="border-b">
+          <th class="text-left p-3 px-5">Name</th>
+          <th class="text-left p-3 px-5">Status</th>
+          <th class="text-left p-3 px-5">Actions</th>
+        </tr>
+        <% @friendships.each do |friendship| %>
           <tr class="border-b hover:bg-orange-100 bg-gray-100">
-            <td class="p-3 px-5"><%= "#{friendship.friend.first_name + " " + friendship.friend.last_name}" %></td>
-            <td class="p-3 px-5"><%= friendship.status %></td>
-            <td class="p-3 px-5 flex space-x-2">
-            <% if friendship.status == "pending" %> <!-- If receiving friendship request --->
-              <%= link_to 'Accept', friendship, friendship:{status: "accepted", accepted_at:"#{Time.now}"}, remote: true, method: :patch, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %><%= link_to 'Delete', friendship, friendship:{user_id: friendship.friend, friend_id: current_user }, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %></td>
-              <% elsif friendship.status == "accepted" && friendship.friend == current_user %> <!-- If accepted friendship request and friend --->
-              <%= link_to 'Delete', friendship, friendship:{user_id: friendship.friend, friend_id: current_user }, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
-              <% elsif friendship.status == "accepted" && friendship.user == current_user %> <!-- If accepted friendship request and user --->
-              <%= link_to 'Delete', friendship, friendship:{user_id: current_user, friend_id: friendship.friend }, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
-              <% else %> <!-- if sending friendship request -->
-              <%= link_to 'Delete', friendship, friendship:{user_id: current_user, friend_id: friendship.friend}, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
-              </td>
+            <% if friendship.friend == current_user %>
+              <td class="p-3 px-5"><%= "#{friendship.user.first_name + " " + friendship.user.last_name}" %></td>
+            <% elsif friendship.user == current_user %>
+              <td class="p-3 px-5"><%= "#{friendship.friend.first_name + " " + friendship.friend.last_name}" %></td>
             <% end %>
+            <% if friendship.friend == current_user && friendship.status == "requested" %>
+              <td class="p-3 px-5"><%= friendship.status %></td>
+            <% elsif friendship.user == current_user && friendship.status == "requested" %>
+              <td class="p-3 px-5">Pending</td>
+            <% elsif friendship.status == "accepted" %>
+              <td class="p-3 px-5"><%= friendship.status %></td>
+            <% end %>
+            <td class="p-3 px-5 flex space-x-2">
+              <% if friendship.friend == current_user && friendship.status == "requested" %>  <!-- If receiving friendship request --->
+                <%= link_to 'Accept', friendship, friendship:{status: "accepted", accepted_at:"#{Time.now}"}, remote: true, method: :patch, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %><%= link_to 'Delete', friendship, friendship:{user_id: friendship.friend, friend_id: current_user }, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %></td>
+            <% elsif friendship.user == current_user && friendship.status == "requested" %> <!-- If accepted friendship request and friend --->
+              <%= link_to 'Delete', friendship, friendship:{user_id: friendship.friend, friend_id: current_user }, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
+              <%# elsif friendship.status == "requested" && friendship.user == current_user %> <!-- If accepted friendship request and user --->
+              <%# link_to 'Delete', friendship, friendship:{user_id: current_user, friend_id: friendship.friend }, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
+            <% elsif friendship.status == "accepted" %> <!-- if sending friendship request -->
+              <%= link_to 'Delete', friendship, friendship:{user_id: current_user, friend_id: friendship.friend}, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>
